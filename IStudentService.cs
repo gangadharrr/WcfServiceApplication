@@ -13,11 +13,13 @@ namespace WcfServiceApplication
     public interface IStudentService
     {
         [OperationContract]
-        void AddOrUpdateStudent(Student student);
+        void AddOrUpdateStudent(student studentq);
         [OperationContract]
-        List<Student> GetStudents();
+        List<student> GetStudents();
         [OperationContract]
-        Student GetStudentById(int Id);
+        student GetStudentById(int Id);
+        [OperationContract]
+        void DeleteStudentId(int Id);
 
     }
 }

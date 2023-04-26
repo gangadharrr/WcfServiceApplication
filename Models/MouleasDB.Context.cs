@@ -13,10 +13,10 @@ namespace WcfServiceApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StudentDBEntities1 : DbContext
+    public partial class mouleasDBEntities : DbContext
     {
-        public StudentDBEntities1()
-            : base("name=StudentDBEntities1")
+        public mouleasDBEntities()
+            : base("name=mouleasDBEntities")
         {
         }
     
@@ -25,6 +25,7 @@ namespace WcfServiceApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<student> Students { get; set; }
+        public virtual DbSet<student> students { get; set; }
+        public virtual DbSet<student1> student1 { get; set; }
     }
 }

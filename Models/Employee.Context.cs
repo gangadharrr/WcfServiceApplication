@@ -13,10 +13,10 @@ namespace WcfServiceApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StudentDBEntities1 : DbContext
+    public partial class PracticeDatabaseEntities : DbContext
     {
-        public StudentDBEntities1()
-            : base("name=StudentDBEntities1")
+        public PracticeDatabaseEntities()
+            : base("name=PracticeDatabaseEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace WcfServiceApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<student> Students { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
     }
 }

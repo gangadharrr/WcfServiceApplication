@@ -13,10 +13,10 @@ namespace WcfServiceApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StudentDBEntities1 : DbContext
+    public partial class Learning_Management_SystemEntities : DbContext
     {
-        public StudentDBEntities1()
-            : base("name=StudentDBEntities1")
+        public Learning_Management_SystemEntities()
+            : base("name=Learning_Management_SystemEntities")
         {
         }
     
@@ -25,6 +25,11 @@ namespace WcfServiceApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<student> Students { get; set; }
+        public virtual DbSet<LMS_BOOK_DETAILS> LMS_BOOK_DETAILS { get; set; }
+        public virtual DbSet<LMS_BOOK_ISSUE> LMS_BOOK_ISSUE { get; set; }
+        public virtual DbSet<LMS_FINE_DETAILS> LMS_FINE_DETAILS { get; set; }
+        public virtual DbSet<LMS_MEMBERS> LMS_MEMBERS { get; set; }
+        public virtual DbSet<LMS_MEMBERS_DETAILS> LMS_MEMBERS_DETAILS { get; set; }
+        public virtual DbSet<LMS_SUPPLIERS_DETAILS> LMS_SUPPLIERS_DETAILS { get; set; }
     }
 }

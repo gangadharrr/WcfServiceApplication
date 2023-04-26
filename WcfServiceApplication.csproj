@@ -69,6 +69,37 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmployeeService.svc" />
+    <Content Include="Models\Employee.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Employee.edmx</DependentUpon>
+      <LastGenOutput>Employee.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Employee.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Employee.edmx</DependentUpon>
+      <LastGenOutput>Employee1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Lms.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Lms.edmx</DependentUpon>
+      <LastGenOutput>Lms.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Lms.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Lms.edmx</DependentUpon>
+      <LastGenOutput>Lms.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MouleasDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MouleasDB.edmx</DependentUpon>
+      <LastGenOutput>MouleasDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MouleasDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MouleasDB.edmx</DependentUpon>
+      <LastGenOutput>MouleasDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\StudentModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StudentModel.Context.cs</LastGenOutput>
@@ -84,14 +115,87 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IEmployeeService.cs" />
     <Compile Include="IStudentService.cs" />
+    <Compile Include="Models\Employee.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>Employee.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lms.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lms.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lms.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lms.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lms.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_BOOK_DETAILS.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_BOOK_ISSUE.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_FINE_DETAILS.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_MEMBERS.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_MEMBERS_DETAILS.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LMS_SUPPLIERS_DETAILS.cs">
+      <DependentUpon>Lms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MouleasDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MouleasDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MouleasDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MouleasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MouleasDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MouleasDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs">
-      <DependentUpon>StudentModel.tt</DependentUpon>
+      <DependentUpon>MouleasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Student.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\student1.cs">
+      <DependentUpon>MouleasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -134,6 +238,27 @@
     </EntityDeploy>
     <Content Include="Models\StudentModel.edmx.diagram">
       <DependentUpon>StudentModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Employee.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Employee.edmx.diagram">
+      <DependentUpon>Employee.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Lms.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Lms.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Lms.edmx.diagram">
+      <DependentUpon>Lms.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\MouleasDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MouleasDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MouleasDB.edmx.diagram">
+      <DependentUpon>MouleasDB.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

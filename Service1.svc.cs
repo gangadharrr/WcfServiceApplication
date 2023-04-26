@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using WcfServiceApplication.Models;
 
 namespace WcfServiceApplication
 {
@@ -16,7 +17,23 @@ namespace WcfServiceApplication
         {
             return string.Format("You entered: {0}", value);
         }
+        public List<LMS_BOOK_DETAILS> GetBooks()
+        {
+            Learning_Management_SystemEntities lmsEntity=new Learning_Management_SystemEntities();
+            List<LMS_BOOK_DETAILS> ListBooks= lmsEntity.LMS_BOOK_DETAILS.ToList();
+            foreach (var item in ListBooks)
+            {
+                Console.WriteLine(item.SUPPLIER_ID);
+            }
+            
+            return ListBooks;
 
+        }
+        public List<student> GetStd()
+        {
+            mouleasDBEntities mDBEntity=new mouleasDBEntities();
+            return mDBEntity.students.ToList();
+        }
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if (composite == null)

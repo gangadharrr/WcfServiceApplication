@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using WcfServiceApplication.Models;
 
 namespace WcfServiceApplication
 {
@@ -18,6 +19,10 @@ namespace WcfServiceApplication
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
+        [OperationContract]
+        List<LMS_BOOK_DETAILS> GetBooks();
+        [OperationContract]
+        List<student> GetStd();
 
         // TODO: Add your service operations here
     }

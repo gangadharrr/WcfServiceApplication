@@ -14,22 +14,24 @@ namespace WcfServiceApplication
     public class StudentService : IStudentService
     {
         public StudentDBEntities1 entity = new StudentDBEntities1();
-        public void AddOrUpdateStudent(Student student)
+        public void AddOrUpdateStudent(student studentq)
         {
-            entity.Students.AddOrUpdate(student); 
+            entity.Students.AddOrUpdate(studentq); 
             entity.SaveChanges();
         }
-        public List<Student> GetStudents() 
+        public List<student> GetStudents() 
         {
             return entity.Students.ToList();
         }
-        public Student GetStudentById(int Id) 
+        public student GetStudentById(int Id) 
         {
             return entity.Students.Find(Id);
         }
         public void DeleteStudentId(int Id) 
         {
              entity.Students.Remove(GetStudentById(Id));
-        } 
+            entity.SaveChanges();
+
+        }
     }
 }

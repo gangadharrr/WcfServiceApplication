@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LMS_BOOK_DETAILS">
+          <Key>
+            <PropertyRef Name="BOOK_CODE" />
+          </Key>
+          <Property Name="BOOK_CODE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BOOK_TITLE" Type="varchar" MaxLength="50" />
+          <Property Name="CATEGORY" Type="varchar" MaxLength="15" />
+          <Property Name="AUTHOR" Type="varchar" MaxLength="30" />
+          <Property Name="PUBLICATION" Type="varchar" MaxLength="30" />
+          <Property Name="PUBLISH_DATE" Type="date" />
+          <Property Name="BOOK_EDTION" Type="int" />
+          <Property Name="PRICE" Type="float" />
+          <Property Name="RACK_NUM" Type="varchar" MaxLength="3" />
+          <Property Name="DATE_ARRIVAL" Type="date" />
+          <Property Name="SUPPLIER_ID" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="LMS_BOOK_ISSUE">
+          <Key>
+            <PropertyRef Name="BOOK_ISSUE_NO" />
+          </Key>
+          <Property Name="BOOK_ISSUE_NO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MEMBER_ID" Type="varchar" MaxLength="10" />
+          <Property Name="BOOK_CODE" Type="varchar" MaxLength="10" />
+          <Property Name="DATE_ISSUE" Type="date" />
+          <Property Name="DATE_RETURN" Type="date" />
+          <Property Name="DATE_RETURNED" Type="date" />
+          <Property Name="FINE_RANGE" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="LMS_FINE_DETAILS">
+          <Key>
+            <PropertyRef Name="FINE_RANGE" />
+          </Key>
+          <Property Name="FINE_RANGE" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="FINE_AMOUNT" Type="int" />
+        </EntityType>
+        <EntityType Name="LMS_MEMBERS">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="varchar" MaxLength="30" />
+          <Property Name="CITY" Type="varchar" MaxLength="20" />
+          <Property Name="DATE_REGISTER" Type="date" />
+          <Property Name="DATE_EXPIRE" Type="date" />
+          <Property Name="MEMBERSHIP_STATUS" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="LMS_MEMBERS_DETAILS">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="varchar" MaxLength="30" />
+          <Property Name="CITY" Type="varchar" MaxLength="20" />
+          <Property Name="DATE_REGISTER" Type="date" />
+          <Property Name="DATE_EXPIRE" Type="date" />
+          <Property Name="MEMBERSHIP_STATUS" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="LMS_SUPPLIERS_DETAILS">
+          <Key>
+            <PropertyRef Name="SUPPLIER_ID" />
+          </Key>
+          <Property Name="SUPPLIER_ID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="SUPPLIER_NAME" Type="varchar" MaxLength="30" />
+          <Property Name="ADDRESS_" Type="varchar" MaxLength="50" />
+          <Property Name="CONTACT" Type="int" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK__LMS_BOOK___BOOK___5E1FF51F">
+          <End Role="LMS_BOOK_DETAILS" Type="Self.LMS_BOOK_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_BOOK_DETAILS">
+              <PropertyRef Name="BOOK_CODE" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="BOOK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___FINE___5D2BD0E6">
+          <End Role="LMS_MEMBERS" Type="Self.LMS_MEMBERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_MEMBERS">
+              <PropertyRef Name="MEMBER_ID" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="MEMBER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___FINE___5F141958">
+          <End Role="LMS_FINE_DETAILS" Type="Self.LMS_FINE_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_FINE_DETAILS">
+              <PropertyRef Name="FINE_RANGE" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="FINE_RANGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___SUPPL__567ED357">
+          <End Role="LMS_SUPPLIERS_DETAILS" Type="Self.LMS_SUPPLIERS_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_DETAILS" Type="Self.LMS_BOOK_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_SUPPLIERS_DETAILS">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_DETAILS">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="LMS_BOOK_DETAILS" EntityType="Self.LMS_BOOK_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMS_BOOK_ISSUE" EntityType="Self.LMS_BOOK_ISSUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMS_FINE_DETAILS" EntityType="Self.LMS_FINE_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMS_MEMBERS" EntityType="Self.LMS_MEMBERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMS_MEMBERS_DETAILS" EntityType="Self.LMS_MEMBERS_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMS_SUPPLIERS_DETAILS" EntityType="Self.LMS_SUPPLIERS_DETAILS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__LMS_BOOK___BOOK___5E1FF51F" Association="Self.FK__LMS_BOOK___BOOK___5E1FF51F">
+            <End Role="LMS_BOOK_DETAILS" EntitySet="LMS_BOOK_DETAILS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___FINE___5D2BD0E6" Association="Self.FK__LMS_BOOK___FINE___5D2BD0E6">
+            <End Role="LMS_MEMBERS" EntitySet="LMS_MEMBERS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___FINE___5F141958" Association="Self.FK__LMS_BOOK___FINE___5F141958">
+            <End Role="LMS_FINE_DETAILS" EntitySet="LMS_FINE_DETAILS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___SUPPL__567ED357" Association="Self.FK__LMS_BOOK___SUPPL__567ED357">
+            <End Role="LMS_SUPPLIERS_DETAILS" EntitySet="LMS_SUPPLIERS_DETAILS" />
+            <End Role="LMS_BOOK_DETAILS" EntitySet="LMS_BOOK_DETAILS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LMS_BOOK_DETAILS">
+          <Key>
+            <PropertyRef Name="BOOK_CODE" />
+          </Key>
+          <Property Name="BOOK_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BOOK_TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AUTHOR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PUBLICATION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PUBLISH_DATE" Type="DateTime" Precision="0" />
+          <Property Name="BOOK_EDTION" Type="Int32" />
+          <Property Name="PRICE" Type="Double" />
+          <Property Name="RACK_NUM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_ARRIVAL" Type="DateTime" Precision="0" />
+          <Property Name="SUPPLIER_ID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LMS_BOOK_ISSUE" Relationship="Self.FK__LMS_BOOK___BOOK___5E1FF51F" FromRole="LMS_BOOK_DETAILS" ToRole="LMS_BOOK_ISSUE" />
+          <NavigationProperty Name="LMS_SUPPLIERS_DETAILS" Relationship="Self.FK__LMS_BOOK___SUPPL__567ED357" FromRole="LMS_BOOK_DETAILS" ToRole="LMS_SUPPLIERS_DETAILS" />
+        </EntityType>
+        <EntityType Name="LMS_BOOK_ISSUE">
+          <Key>
+            <PropertyRef Name="BOOK_ISSUE_NO" />
+          </Key>
+          <Property Name="BOOK_ISSUE_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BOOK_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_ISSUE" Type="DateTime" Precision="0" />
+          <Property Name="DATE_RETURN" Type="DateTime" Precision="0" />
+          <Property Name="DATE_RETURNED" Type="DateTime" Precision="0" />
+          <Property Name="FINE_RANGE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LMS_BOOK_DETAILS" Relationship="Self.FK__LMS_BOOK___BOOK___5E1FF51F" FromRole="LMS_BOOK_ISSUE" ToRole="LMS_BOOK_DETAILS" />
+          <NavigationProperty Name="LMS_MEMBERS" Relationship="Self.FK__LMS_BOOK___FINE___5D2BD0E6" FromRole="LMS_BOOK_ISSUE" ToRole="LMS_MEMBERS" />
+          <NavigationProperty Name="LMS_FINE_DETAILS" Relationship="Self.FK__LMS_BOOK___FINE___5F141958" FromRole="LMS_BOOK_ISSUE" ToRole="LMS_FINE_DETAILS" />
+        </EntityType>
+        <EntityType Name="LMS_FINE_DETAILS">
+          <Key>
+            <PropertyRef Name="FINE_RANGE" />
+          </Key>
+          <Property Name="FINE_RANGE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FINE_AMOUNT" Type="Int32" />
+          <NavigationProperty Name="LMS_BOOK_ISSUE" Relationship="Self.FK__LMS_BOOK___FINE___5F141958" FromRole="LMS_FINE_DETAILS" ToRole="LMS_BOOK_ISSUE" />
+        </EntityType>
+        <EntityType Name="LMS_MEMBERS">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_REGISTER" Type="DateTime" Precision="0" />
+          <Property Name="DATE_EXPIRE" Type="DateTime" Precision="0" />
+          <Property Name="MEMBERSHIP_STATUS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LMS_BOOK_ISSUE" Relationship="Self.FK__LMS_BOOK___FINE___5D2BD0E6" FromRole="LMS_MEMBERS" ToRole="LMS_BOOK_ISSUE" />
+        </EntityType>
+        <EntityType Name="LMS_MEMBERS_DETAILS">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_REGISTER" Type="DateTime" Precision="0" />
+          <Property Name="DATE_EXPIRE" Type="DateTime" Precision="0" />
+          <Property Name="MEMBERSHIP_STATUS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LMS_SUPPLIERS_DETAILS">
+          <Key>
+            <PropertyRef Name="SUPPLIER_ID" />
+          </Key>
+          <Property Name="SUPPLIER_ID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SUPPLIER_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="Int32" />
+          <Property Name="EMAIL" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LMS_BOOK_DETAILS" Relationship="Self.FK__LMS_BOOK___SUPPL__567ED357" FromRole="LMS_SUPPLIERS_DETAILS" ToRole="LMS_BOOK_DETAILS" />
+        </EntityType>
+        <Association Name="FK__LMS_BOOK___BOOK___5E1FF51F">
+          <End Role="LMS_BOOK_DETAILS" Type="Self.LMS_BOOK_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_BOOK_DETAILS">
+              <PropertyRef Name="BOOK_CODE" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="BOOK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___SUPPL__567ED357">
+          <End Role="LMS_SUPPLIERS_DETAILS" Type="Self.LMS_SUPPLIERS_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_DETAILS" Type="Self.LMS_BOOK_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_SUPPLIERS_DETAILS">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_DETAILS">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___FINE___5D2BD0E6">
+          <End Role="LMS_MEMBERS" Type="Self.LMS_MEMBERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_MEMBERS">
+              <PropertyRef Name="MEMBER_ID" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="MEMBER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LMS_BOOK___FINE___5F141958">
+          <End Role="LMS_FINE_DETAILS" Type="Self.LMS_FINE_DETAILS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LMS_BOOK_ISSUE" Type="Self.LMS_BOOK_ISSUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LMS_FINE_DETAILS">
+              <PropertyRef Name="FINE_RANGE" />
+            </Principal>
+            <Dependent Role="LMS_BOOK_ISSUE">
+              <PropertyRef Name="FINE_RANGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Learning_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LMS_BOOK_DETAILS" EntityType="Self.LMS_BOOK_DETAILS" />
+          <EntitySet Name="LMS_BOOK_ISSUE" EntityType="Self.LMS_BOOK_ISSUE" />
+          <EntitySet Name="LMS_FINE_DETAILS" EntityType="Self.LMS_FINE_DETAILS" />
+          <EntitySet Name="LMS_MEMBERS" EntityType="Self.LMS_MEMBERS" />
+          <EntitySet Name="LMS_MEMBERS_DETAILS" EntityType="Self.LMS_MEMBERS_DETAILS" />
+          <EntitySet Name="LMS_SUPPLIERS_DETAILS" EntityType="Self.LMS_SUPPLIERS_DETAILS" />
+          <AssociationSet Name="FK__LMS_BOOK___BOOK___5E1FF51F" Association="Self.FK__LMS_BOOK___BOOK___5E1FF51F">
+            <End Role="LMS_BOOK_DETAILS" EntitySet="LMS_BOOK_DETAILS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___SUPPL__567ED357" Association="Self.FK__LMS_BOOK___SUPPL__567ED357">
+            <End Role="LMS_SUPPLIERS_DETAILS" EntitySet="LMS_SUPPLIERS_DETAILS" />
+            <End Role="LMS_BOOK_DETAILS" EntitySet="LMS_BOOK_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___FINE___5D2BD0E6" Association="Self.FK__LMS_BOOK___FINE___5D2BD0E6">
+            <End Role="LMS_MEMBERS" EntitySet="LMS_MEMBERS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LMS_BOOK___FINE___5F141958" Association="Self.FK__LMS_BOOK___FINE___5F141958">
+            <End Role="LMS_FINE_DETAILS" EntitySet="LMS_FINE_DETAILS" />
+            <End Role="LMS_BOOK_ISSUE" EntitySet="LMS_BOOK_ISSUE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Learning_Management_SystemEntities">
+          <EntitySetMapping Name="LMS_BOOK_DETAILS">
+            <EntityTypeMapping TypeName="Model1.LMS_BOOK_DETAILS">
+              <MappingFragment StoreEntitySet="LMS_BOOK_DETAILS">
+                <ScalarProperty Name="BOOK_CODE" ColumnName="BOOK_CODE" />
+                <ScalarProperty Name="BOOK_TITLE" ColumnName="BOOK_TITLE" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+                <ScalarProperty Name="PUBLICATION" ColumnName="PUBLICATION" />
+                <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
+                <ScalarProperty Name="BOOK_EDTION" ColumnName="BOOK_EDTION" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="RACK_NUM" ColumnName="RACK_NUM" />
+                <ScalarProperty Name="DATE_ARRIVAL" ColumnName="DATE_ARRIVAL" />
+                <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMS_BOOK_ISSUE">
+            <EntityTypeMapping TypeName="Model1.LMS_BOOK_ISSUE">
+              <MappingFragment StoreEntitySet="LMS_BOOK_ISSUE">
+                <ScalarProperty Name="BOOK_ISSUE_NO" ColumnName="BOOK_ISSUE_NO" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="BOOK_CODE" ColumnName="BOOK_CODE" />
+                <ScalarProperty Name="DATE_ISSUE" ColumnName="DATE_ISSUE" />
+                <ScalarProperty Name="DATE_RETURN" ColumnName="DATE_RETURN" />
+                <ScalarProperty Name="DATE_RETURNED" ColumnName="DATE_RETURNED" />
+                <ScalarProperty Name="FINE_RANGE" ColumnName="FINE_RANGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMS_FINE_DETAILS">
+            <EntityTypeMapping TypeName="Model1.LMS_FINE_DETAILS">
+              <MappingFragment StoreEntitySet="LMS_FINE_DETAILS">
+                <ScalarProperty Name="FINE_RANGE" ColumnName="FINE_RANGE" />
+                <ScalarProperty Name="FINE_AMOUNT" ColumnName="FINE_AMOUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMS_MEMBERS">
+            <EntityTypeMapping TypeName="Model1.LMS_MEMBERS">
+              <MappingFragment StoreEntitySet="LMS_MEMBERS">
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="DATE_REGISTER" ColumnName="DATE_REGISTER" />
+                <ScalarProperty Name="DATE_EXPIRE" ColumnName="DATE_EXPIRE" />
+                <ScalarProperty Name="MEMBERSHIP_STATUS" ColumnName="MEMBERSHIP_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMS_MEMBERS_DETAILS">
+            <EntityTypeMapping TypeName="Model1.LMS_MEMBERS_DETAILS">
+              <MappingFragment StoreEntitySet="LMS_MEMBERS_DETAILS">
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="DATE_REGISTER" ColumnName="DATE_REGISTER" />
+                <ScalarProperty Name="DATE_EXPIRE" ColumnName="DATE_EXPIRE" />
+                <ScalarProperty Name="MEMBERSHIP_STATUS" ColumnName="MEMBERSHIP_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMS_SUPPLIERS_DETAILS">
+            <EntityTypeMapping TypeName="Model1.LMS_SUPPLIERS_DETAILS">
+              <MappingFragment StoreEntitySet="LMS_SUPPLIERS_DETAILS">
+                <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
+                <ScalarProperty Name="SUPPLIER_NAME" ColumnName="SUPPLIER_NAME" />
+                <ScalarProperty Name="ADDRESS_" ColumnName="ADDRESS_" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
